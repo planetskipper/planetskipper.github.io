@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rankin's Little Farm — Gooramadda, Northern Victoria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --soil:     #3d2b1f;
+  --bark:     #6b4c35;
+  --straw:    #c8a96e;
+  --wheat:    #e8d5a3;
+  --cream:    #f7f0e2;
+  --sage:     #7a8c6e;
+  --moss:     #4a5c3f;
+  --sky:      #c2d4d8;
+  --dusk:     #8c7b6e;
+  --white:    #fdfaf5;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lora', Georgia, serif;
+
+  --radius: 4px;
+  --max-w: 680px;
+  --pad: 1.5rem;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--soil);
+  font-size: 17px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+a {
+  color: var(--moss);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── Utility ──────────────────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+.section {
+  padding: 4rem var(--pad);
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bark);
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--soil);
+  margin-bottom: 1.5rem;
+}
+
+.divider {
+  width: 48px;
+  height: 2px;
+  background: var(--straw);
+  margin: 1.5rem 0;
+}
+
+/* ── Navigation ───────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(253, 250, 245, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(107, 76, 53, 0.12);
+  padding: 1rem var(--pad);
+}
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--soil);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.nav-logo span {
+  font-weight: 400;
+  font-style: italic;
+  color: var(--bark);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--bark);
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--soil); }
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--soil);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+@media (max-width: 560px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: var(--white);
+    padding: 1rem var(--pad) 1.5rem;
+    border-bottom: 1px solid rgba(107, 76, 53, 0.12);
+    gap: 1rem;
+  }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: flex; }
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+#hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+  background: var(--soil);
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    #6b8c5a 0%,
+    #4a5c3f 25%,
+    #8c7b6e 60%,
+    #3d2b1f 100%
+  );
+  opacity: 0.9;
+}
+
+/* Subtle grain texture overlay */
+.hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem var(--pad) 4rem;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  width: 100%;
+  animation: fadeUp 1.2s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--straw);
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 9vw, 4.2rem);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--straw);
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--wheat);
+  margin-bottom: 2.5rem;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.hero-cta {
+  display: inline-block;
+  background: var(--straw);
+  color: var(--soil);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius);
+  transition: background 0.2s, transform 0.2s;
+  font-weight: 500;
+}
+
+.hero-cta:hover {
+  background: var(--wheat);
+  transform: translateY(-1px);
+}
+
+/* ── Photo placeholder ────────────────────────────────────────────────── */
+.photo-placeholder {
+  background: var(--wheat);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bark);
+  font-size: 0.8rem;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+/* ── About section ────────────────────────────────────────────────────── */
+#about {
+  background: var(--white);
+  padding-top: 6rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.about-photo {
+  height: 280px;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.about-photo .photo-placeholder {
+  height: 100%;
+}
+
+.about-body p {
+  margin-bottom: 1.2rem;
+  color: var(--bark);
+}
+
+.about-body p:last-child { margin-bottom: 0; }
+
+/* ── Gallery ──────────────────────────────────────────────────────────── */
+#gallery {
+  background: var(--cream);
+}
+
+.gallery-intro {
+  margin-bottom: 2rem;
+  color: var(--bark);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.gallery-item {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.gallery-item.tall {
+  grid-row: span 2;
+}
+
+.gallery-item .photo-placeholder {
+  height: 180px;
+}
+
+.gallery-item.tall .photo-placeholder {
+  height: 100%;
+  min-height: 380px;
+}
+
+/* ── The Farm ─────────────────────────────────────────────────────────── */
+#farm {
+  background: var(--white);
+}
+
+.zones-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.zone-card {
+  border: 1px solid rgba(107, 76, 53, 0.15);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+
+.zone-card:hover {
+  border-color: var(--straw);
+}
+
+.zone-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--soil);
+  margin-bottom: 0.4rem;
+}
+
+.zone-card p {
+  font-size: 0.9rem;
+  color: var(--bark);
+  line-height: 1.6;
+}
+
+/* ── Map section ──────────────────────────────────────────────────────── */
+#map-section {
+  background: var(--cream);
+}
+
+.map-container {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(107, 76, 53, 0.15);
+  margin-top: 1.5rem;
+}
+
+.map-embed {
+  width: 100%;
+  height: 340px;
+  background: var(--wheat);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bark);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* ── Come and Help ────────────────────────────────────────────────────── */
+#helpx {
+  background: var(--soil);
+  color: var(--cream);
+}
+
+#helpx .section-label { color: var(--straw); }
+#helpx .section-title { color: var(--cream); }
+#helpx .divider { background: var(--straw); }
+
+.helpx-intro {
+  color: var(--wheat);
+  margin-bottom: 2rem;
+}
+
+.helpx-features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.helpx-feature {
+  border: 1px solid rgba(200, 169, 110, 0.25);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.helpx-feature h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--straw);
+  margin-bottom: 0.4rem;
+}
+
+.helpx-feature p {
+  font-size: 0.88rem;
+  color: var(--wheat);
+  line-height: 1.65;
+  opacity: 0.85;
+}
+
+.non-negotiables {
+  background: rgba(200, 169, 110, 0.1);
+  border: 1px solid rgba(200, 169, 110, 0.2);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.non-negotiables h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--straw);
+  margin-bottom: 1rem;
+}
+
+.non-negotiables ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.non-negotiables li {
+  font-size: 0.88rem;
+  color: var(--wheat);
+  padding-left: 1.2rem;
+  position: relative;
+  opacity: 0.9;
+}
+
+.non-negotiables li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--straw);
+  opacity: 0.6;
+}
+
+.booklet-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(200, 169, 110, 0.4);
+  border-radius: var(--radius);
+  padding: 0.85rem 1.5rem;
+  color: var(--straw);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  transition: background 0.2s;
+}
+
+.booklet-link:hover {
+  background: rgba(200, 169, 110, 0.1);
+  color: var(--straw);
+}
+
+/* ── Reviews ──────────────────────────────────────────────────────────── */
+#reviews {
+  background: var(--cream);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.review-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  border: 1px solid rgba(107, 76, 53, 0.1);
+}
+
+.review-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--soil);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.review-meta {
+  font-size: 0.8rem;
+  color: var(--dusk);
+  letter-spacing: 0.05em;
+}
+
+/* ── Contact ──────────────────────────────────────────────────────────── */
+#contact {
+  background: var(--white);
+}
+
+.contact-intro {
+  color: var(--bark);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bark);
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(107, 76, 53, 0.25);
+  border-radius: var(--radius);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--soil);
+  transition: border-color 0.2s;
+  appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--straw);
+}
+
+.form-group textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.form-submit {
+  width: 100%;
+  background: var(--moss);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s;
+  font-weight: 500;
+}
+
+.form-submit:hover { background: var(--soil); }
+
+.form-note {
+  font-size: 0.8rem;
+  color: var(--dusk);
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+footer {
+  background: var(--soil);
+  color: var(--wheat);
+  padding: 3rem var(--pad) 2rem;
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.footer-location {
+  font-size: 0.85rem;
+  color: var(--straw);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.footer-links a {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wheat);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.footer-links a:hover { opacity: 1; }
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: var(--wheat);
+  opacity: 0.35;
+}
+
+/* ── Scroll reveal ────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Desktop enhancements ─────────────────────────────────────────────── */
+@media (min-width: 560px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .zones-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .helpx-features {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Rankin's <span>Little Farm</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" onclick="closeNav()">About</a></li>
+      <li><a href="#farm" onclick="closeNav()">The Farm</a></li>
+      <li><a href="#helpx" onclick="closeNav()">Come and Help</a></li>
+      <li><a href="#reviews" onclick="closeNav()">Stories</a></li>
+      <li><a href="gallery.html" onclick="closeNav()">Gallery</a></li>
+      <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ────────────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-image"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Gooramadda · Northern Victoria · Murray River Country</p>
+    <h1 class="hero-title">Rankin's<br><em>Little Farm</em></h1>
+    <p class="hero-subtitle">Roses, orchards, open skies, and good work done together</p>
+    <a href="#helpx" class="hero-cta">Come and help</a>
+  </div>
+</section>
+
+<!-- ── About ───────────────────────────────────────────────────────────── -->
+<section id="about">
+  <div class="section">
+    <p class="section-label reveal">Our story</p>
+    <h2 class="section-title reveal">A working farm,<br>a family home</h2>
+    <div class="divider reveal"></div>
+    <div class="about-grid">
+      <div class="about-photo reveal">
+        <div class="photo-placeholder">Photo — Beth and Tim</div>
+      </div>
+      <div class="about-body reveal">
+        <p>Seven years ago we moved to our little farm at Gooramadda and we haven't stopped since. We've been growing a garden, planting trees, learning to care for the land, and building something we're genuinely proud of.</p>
+        <p>Tim is a retired engineer with a gift for designing and building. Beth teaches creative arts and public health at an Australian university. Our head gardener Mick leads all outdoor work and training.</p>
+        <p>We joined Landcare to better understand the local trees and wildlife. The bird life here is extraordinary — flame robins, splendid fairy-wrens, grass parrots, eagles, and a family of quail who live in the herb garden.</p>
+        <p>Close to the wine region, the Murray River, Rutherglen, and Corowa — and under some of the most spectacular skies you'll find anywhere.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Gallery ─────────────────────────────────────────────────────────── -->
+<section id="gallery">
+  <div class="section">
+    <p class="section-label reveal">The property</p>
+    <h2 class="section-title reveal">400 roses and<br>far horizons</h2>
+    <div class="divider reveal"></div>
+    <p class="gallery-intro reveal">From the rose garden and orchard to the Italian garden and the wood-fired pizza oven — there's always something in bloom, something to harvest, and something to build.</p>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item tall">
+        <div class="photo-placeholder" style="height:100%;min-height:380px">Rose garden</div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder">Orchard and chooks</div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder">Vegetable gardens</div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder">Sunset over the farm</div>
+      </div>
+      <div class="gallery-item">
+        <div class="photo-placeholder">Back verandah</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── The Farm ─────────────────────────────────────────────────────────── -->
+<section id="farm">
+  <div class="section">
+    <p class="section-label reveal">What's here</p>
+    <h2 class="section-title reveal">The farm in detail</h2>
+    <div class="divider reveal"></div>
+    <p class="reveal" style="color:var(--bark);margin-bottom:1rem">A large working property with more than 70 named areas, each with its own character and purpose.</p>
+    <div class="zones-grid">
+      <div class="zone-card reveal">
+        <h3>The Rose Garden</h3>
+        <p>400 fragrant rose bushes in a maze of circular paths, with a central pergola and two entrance paths. One of Beth's great passions.</p>
+      </div>
+      <div class="zone-card reveal">
+        <h3>Orchard and Chook Run</h3>
+        <p>Apple, pear, peach, lemon, lime, fig, pomegranate, finger lime, and a range of nut trees and berries. Free-range chickens roam throughout.</p>
+      </div>
+      <div class="zone-card reveal">
+        <h3>Vegetable and Herb Gardens</h3>
+        <p>Raised beds producing seasonal vegetables and herbs year-round, following the North East planting calendar. A glasshouse for propagation.</p>
+      </div>
+      <div class="zone-card reveal">
+        <h3>The Italian Garden</h3>
+        <p>A formal garden space with its own distinct character, requiring regular care and attention through the seasons.</p>
+      </div>
+      <div class="zone-card reveal">
+        <h3>Workshops and Studios</h3>
+        <p>Shed 1 (engineering and woodwork), Shed 2 (machinery and tools), Beth's Shed (music and sewing), and the Arts Studio with its sunset deck.</p>
+      </div>
+      <div class="zone-card reveal">
+        <h3>Conservation Areas</h3>
+        <p>Northern and southern conservation lanes, a north-eastern plantation, dam, swamp, and native plantings throughout the property.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Map ──────────────────────────────────────────────────────────────── -->
+<section id="map-section">
+  <div class="section">
+    <p class="section-label reveal">Find us</p>
+    <h2 class="section-title reveal">Gooramadda,<br>Northern Victoria</h2>
+    <div class="divider reveal"></div>
+    <p class="reveal" style="color:var(--bark);margin-bottom:0.5rem">884 Gooramadda Road, Gooramadda — 500 metres east from the UpRiver Road intersection. Look for the magpie on the letterbox.</p>
+    <p class="reveal" style="color:var(--bark);margin-bottom:1.5rem;font-size:0.9rem;font-style:italic">10 minutes from Rutherglen · 35 minutes from Albury-Wodonga · Close to Corowa, Beechworth, and the Murray River</p>
+    <div class="map-container reveal">
+      <div class="map-embed">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3280.5!2d146.46!3d-36.05!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDAzJzAwLjAiUyAxNDbCsDI3JzM2LjAiRQ!5e0!3m2!1sen!2sau!4v1234567890"
+          width="100%"
+          height="340"
+          style="border:0;display:block"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Rankin's Little Farm location">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Come and Help ────────────────────────────────────────────────────── -->
+<section id="helpx">
+  <div class="section">
+    <p class="section-label reveal">HelpX volunteers</p>
+    <h2 class="section-title reveal">Come and help</h2>
+    <div class="divider reveal"></div>
+    <p class="helpx-intro reveal">We welcome HelpX volunteers for stays of one week to several months. In exchange for four hours of genuine work per day, five days a week, you'll have a comfortable room, shared meals, and a place that most people leave reluctantly.</p>
+
+    <div class="helpx-features">
+      <div class="helpx-feature reveal">
+        <h3>The work</h3>
+        <p>Garden and orchard maintenance, planting and harvesting, house upkeep, meal preparation. Training on farm machinery including ride-on mowers, a stand-on loader, and a tractor.</p>
+      </div>
+      <div class="helpx-feature reveal">
+        <h3>What you'll get</h3>
+        <p>A private bedroom, shared bathroom, all meals at the table together, pool access, a music room full of instruments, bicycles, WiFi, and the company of people who'll genuinely welcome you.</p>
+      </div>
+      <div class="helpx-feature reveal">
+        <h3>The right helper</h3>
+        <p>Self-motivated, tidy, happy to pitch in without being asked, open to learning, a good listener. This is a home, not a hostel. The helpers who thrive here embrace that fully.</p>
+      </div>
+      <div class="helpx-feature reveal">
+        <h3>Early starts</h3>
+        <p>In summer we start around 7am to beat the Northern Victorian heat. The farm at dawn — roses at their most fragrant, birds at their most active, the horizon turning gold — is worth waking up for.</p>
+      </div>
+    </div>
+
+    <div class="non-negotiables reveal">
+      <h3>A few non-negotiables</h3>
+      <ul>
+        <li>No smoking or vaping anywhere on the property</li>
+        <li>No alcohol before or during work</li>
+        <li>Shoes off at every entrance to the house</li>
+        <li>Brown snakes are present in summer — we brief you fully on arrival</li>
+        <li>Honesty about your skills, experience, and anything that goes wrong</li>
+      </ul>
+    </div>
+
+    <a href="welcome-booklet.pdf" class="booklet-link reveal" download>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 1v9M5 7l3 3 3-3M2 12v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Download the welcome booklet
+    </a>
+  </div>
+</section>
+
+<!-- ── Reviews ──────────────────────────────────────────────────────────── -->
+<section id="reviews">
+  <div class="section">
+    <p class="section-label reveal">What helpers say</p>
+    <h2 class="section-title reveal">Stories from<br>the farm</h2>
+    <div class="divider reveal"></div>
+    <div class="reviews-grid">
+      <div class="review-card reveal">
+        <p class="review-quote">"It felt like we'd gained a new family in Australia. It's definitely a place we want to return to."</p>
+        <p class="review-meta">Taka and Sora — Japan, January 2026</p>
+      </div>
+      <div class="review-card reveal">
+        <p class="review-quote">"This is a beautiful place. You immediately become part of the family."</p>
+        <p class="review-meta">Elisabeth — France, April 2022</p>
+      </div>
+      <div class="review-card reveal">
+        <p class="review-quote">"The work isn't difficult — it's more like fun. The organisation remains very flexible."</p>
+        <p class="review-meta">Chloé — France, February 2024</p>
+      </div>
+      <div class="review-card reveal">
+        <p class="review-quote">"Every new skill gave me a sense of accomplishment — including learning to drive a tractor."</p>
+        <p class="review-meta">Eva — Singapore, March 2025</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ──────────────────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="section">
+    <p class="section-label reveal">Get in touch</p>
+    <h2 class="section-title reveal">Thinking of coming?</h2>
+    <div class="divider reveal"></div>
+    <p class="contact-intro reveal">Tell us a little about yourself and what draws you to this kind of life. The more we know, the better we can work out whether we're a good match. We read every message and we'll be honest with you in return.</p>
+
+    <form
+      action="https://api.web3forms.com/submit"
+      method="POST"
+      class="reveal">
+
+      <input type="hidden" name="access_key" value="YOUR-WEB3FORMS-KEY-HERE">
+      <input type="hidden" name="subject" value="New enquiry from Rankin's Little Farm website">
+      <input type="hidden" name="redirect" value="https://little-farm.com.au/thankyou.html">
+
+      <div class="form-group">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" required placeholder="First and last name">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" required placeholder="you@example.com">
+      </div>
+
+      <div class="form-group">
+        <label for="country">Where are you from?</label>
+        <input type="text" id="country" name="country" placeholder="Country or region">
+      </div>
+
+      <div class="form-group">
+        <label for="dates">Approximate dates you're thinking of</label>
+        <input type="text" id="dates" name="dates" placeholder="e.g. late April for 3 weeks">
+      </div>
+
+      <div class="form-group">
+        <label for="english">Your English level</label>
+        <select id="english" name="english">
+          <option value="">Please select</option>
+          <option>Fluent</option>
+          <option>Conversational</option>
+          <option>Basic</option>
+          <option>Very little</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Tell us about yourself</label>
+        <textarea id="message" name="message" required placeholder="Your experience, skills, what draws you to farm life, anything else we should know..."></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">Send enquiry</button>
+      <p class="form-note">We usually reply within a few days. Please read the welcome booklet before you write — it'll help you decide if we're the right fit for each other.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-logo">Rankin's Little Farm</p>
+    <p class="footer-location">Gooramadda, Northern Victoria · Murray River Country</p>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#farm">The farm</a></li>
+      <li><a href="#helpx">Come and help</a></li>
+      <li><a href="#reviews">Stories</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">Rankin's Little Farm · 884 Gooramadda Road · Not for reproduction</p>
+  </div>
+</footer>
+
+<script>
+// ── Mobile nav ────────────────────────────────────────────────────────────
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+function closeNav() {
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+// ── Scroll reveal ─────────────────────────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── Nav scroll state ──────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 60) {
+    nav.style.boxShadow = '0 1px 12px rgba(61,43,31,0.08)';
+  } else {
+    nav.style.boxShadow = 'none';
+  }
+});
+</script>
+</body>
+</html>

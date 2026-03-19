@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Rankin's Little Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --soil:     #3d2b1f;
+  --bark:     #6b4c35;
+  --straw:    #c8a96e;
+  --wheat:    #e8d5a3;
+  --cream:    #f7f0e2;
+  --sage:     #7a8c6e;
+  --moss:     #4a5c3f;
+  --sky:      #c2d4d8;
+  --dusk:     #8c7b6e;
+  --white:    #fdfaf5;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lora', Georgia, serif;
+
+  --radius: 4px;
+  --max-w: 960px;
+  --pad: 1.5rem;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--soil);
+  font-size: 17px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--moss);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── Nav ──────────────────────────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid rgba(107, 76, 53, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--soil);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.nav-logo span { font-style: italic; color: var(--bark); }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bark);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active { opacity: 1; color: var(--soil); }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--soil);
+  border-radius: 2px;
+  transition: transform 0.2s;
+}
+
+@media (max-width: 560px) {
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    flex-direction: column;
+    gap: 0;
+    border-bottom: 1px solid rgba(107,76,53,0.1);
+    padding: 0.5rem 0;
+  }
+
+  .nav-links.open { display: flex; }
+
+  .nav-links li a {
+    display: block;
+    padding: 0.75rem var(--pad);
+  }
+}
+
+/* ── Page header ──────────────────────────────────────────────────────── */
+.page-header {
+  background: var(--cream);
+  padding: 4rem var(--pad) 3rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(107,76,53,0.08);
+}
+
+.page-header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bark);
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 400;
+  color: var(--soil);
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--bark);
+}
+
+.divider {
+  width: 40px;
+  height: 2px;
+  background: var(--straw);
+  margin: 1.25rem auto;
+  border-radius: 2px;
+}
+
+.page-intro {
+  color: var(--bark);
+  font-style: italic;
+  max-width: 480px;
+  margin: 0 auto;
+  font-size: 0.95rem;
+}
+
+/* ── Gallery section ──────────────────────────────────────────────────── */
+.gallery-section {
+  padding: 3rem var(--pad) 5rem;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+/* Masonry via CSS columns */
+.masonry {
+  columns: 2;
+  column-gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .masonry { columns: 3; }
+}
+
+@media (min-width: 900px) {
+  .masonry { columns: 4; }
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 0.85rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  background: var(--wheat);
+}
+
+.masonry-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.masonry-item img.loaded { opacity: 1; }
+
+.masonry-item:hover img {
+  transform: scale(1.03);
+}
+
+.masonry-item .caption-hover {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(61,43,31,0.75));
+  color: var(--cream);
+  font-size: 0.78rem;
+  font-style: italic;
+  font-family: var(--font-body);
+  padding: 1.5rem 0.75rem 0.65rem;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.masonry-item:hover .caption-hover { opacity: 1; }
+
+/* Loading state */
+.gallery-loading {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--bark);
+  font-style: italic;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.gallery-empty {
+  text-align: center;
+  padding: 5rem 0;
+  color: var(--bark);
+  opacity: 0.5;
+}
+
+.gallery-empty p {
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* ── Lightbox ─────────────────────────────────────────────────────────── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(61,43,31,0.92);
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: lbFadeIn 0.2s ease;
+}
+
+.lightbox.open { display: flex; }
+
+@keyframes lbFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.lightbox-inner {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.lightbox-img {
+  max-height: 80vh;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius);
+  display: block;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+.lightbox-caption {
+  color: var(--wheat);
+  font-style: italic;
+  font-size: 0.88rem;
+  text-align: center;
+  opacity: 0.8;
+  font-family: var(--font-body);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  background: none;
+  border: none;
+  color: var(--wheat);
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  padding: 0.25rem 0.5rem;
+}
+
+.lightbox-close:hover { opacity: 1; }
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(253,250,245,0.12);
+  border: 1px solid rgba(253,250,245,0.2);
+  color: var(--cream);
+  font-size: 1.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.lightbox-nav:hover { background: rgba(253,250,245,0.22); }
+
+.lightbox-prev { left: -3.5rem; }
+.lightbox-next { right: -3.5rem; }
+
+@media (max-width: 640px) {
+  .lightbox-prev { left: 0; top: auto; bottom: -3.5rem; transform: none; }
+  .lightbox-next { right: 0; top: auto; bottom: -3.5rem; transform: none; }
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+footer {
+  background: var(--soil);
+  color: var(--wheat);
+  padding: 3rem var(--pad) 2rem;
+  text-align: center;
+}
+
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.footer-location {
+  font-size: 0.85rem;
+  color: var(--straw);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.footer-links a {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wheat);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.footer-links a:hover { opacity: 1; }
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: var(--wheat);
+  opacity: 0.35;
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Rankin's <span>Little Farm</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about" onclick="closeNav()">About</a></li>
+      <li><a href="index.html#farm" onclick="closeNav()">The Farm</a></li>
+      <li><a href="index.html#helpx" onclick="closeNav()">Come and Help</a></li>
+      <li><a href="index.html#reviews" onclick="closeNav()">Stories</a></li>
+      <li><a href="gallery.html" class="active" onclick="closeNav()">Gallery</a></li>
+      <li><a href="index.html#contact" onclick="closeNav()">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Page header ──────────────────────────────────────────────────────── -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <p class="section-label">The farm in pictures</p>
+    <h1 class="section-title">Photo <em>Gallery</em></h1>
+    <div class="divider"></div>
+    <p class="page-intro">Seasons, animals, gardens, and the people who've come to help.</p>
+  </div>
+</header>
+
+<!-- ── Gallery ─────────────────────────────────────────────────────────── -->
+<main class="gallery-section">
+  <div id="galleryContainer">
+    <div class="gallery-loading">Loading photos...</div>
+  </div>
+</main>
+
+<!-- ── Lightbox ─────────────────────────────────────────────────────────── -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" onclick="shiftLightbox(-1)" aria-label="Previous">&#8592;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav lightbox-next" onclick="shiftLightbox(1)" aria-label="Next">&#8594;</button>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+  </div>
+</div>
+
+<!-- ── Footer ───────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-logo">Rankin's Little Farm</p>
+    <p class="footer-location">Gooramadda, Northern Victoria · Murray River Country</p>
+    <ul class="footer-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#farm">The farm</a></li>
+      <li><a href="index.html#helpx">Come and help</a></li>
+      <li><a href="index.html#reviews">Stories</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">Rankin's Little Farm · 884 Gooramadda Road · Not for reproduction</p>
+  </div>
+</footer>
+
+<script>
+// ── Mobile nav ────────────────────────────────────────────────────────────
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+function closeNav() {
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+// ── Nav scroll shadow ─────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.boxShadow = window.scrollY > 60
+    ? '0 1px 12px rgba(61,43,31,0.08)'
+    : 'none';
+});
+
+// ── Gallery ───────────────────────────────────────────────────────────────
+let photos = [];
+let currentIndex = 0;
+
+async function loadGallery() {
+  const container = document.getElementById('galleryContainer');
+
+  try {
+    // photos.json lives in the same folder as this file
+    const res = await fetch('photos.json');
+    if (!res.ok) throw new Error('Not found');
+    photos = await res.json();
+  } catch (e) {
+    container.innerHTML = `
+      <div class="gallery-empty">
+        <p>No photos yet. Add images to the repo and update photos.json to get started.</p>
+      </div>`;
+    return;
+  }
+
+  if (!photos.length) {
+    container.innerHTML = `
+      <div class="gallery-empty">
+        <p>The gallery is empty. Upload some photos and add them to photos.json.</p>
+      </div>`;
+    return;
+  }
+
+  const grid = document.createElement('div');
+  grid.className = 'masonry';
+
+  photos.forEach((photo, i) => {
+    const item = document.createElement('div');
+    item.className = 'masonry-item';
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('role', 'button');
+    item.setAttribute('aria-label', photo.caption || 'Farm photo ' + (i + 1));
+
+    const img = document.createElement('img');
+    img.alt = photo.caption || '';
+    img.loading = 'lazy';
+
+    // Fade in once loaded
+    img.addEventListener('load', () => img.classList.add('loaded'));
+    img.src = photo.src;
+
+    item.appendChild(img);
+
+    if (photo.caption) {
+      const cap = document.createElement('span');
+      cap.className = 'caption-hover';
+      cap.textContent = photo.caption;
+      item.appendChild(cap);
+    }
+
+    item.addEventListener('click', () => openLightbox(i));
+    item.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') openLightbox(i);
+    });
+
+    grid.appendChild(item);
+  });
+
+  container.innerHTML = '';
+  container.appendChild(grid);
+}
+
+// ── Lightbox ──────────────────────────────────────────────────────────────
+function openLightbox(index) {
+  currentIndex = index;
+  showPhoto(currentIndex);
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function shiftLightbox(dir) {
+  currentIndex = (currentIndex + dir + photos.length) % photos.length;
+  showPhoto(currentIndex);
+}
+
+function showPhoto(index) {
+  const p = photos[index];
+  document.getElementById('lightboxImg').src = p.src;
+  document.getElementById('lightboxImg').alt = p.caption || '';
+  document.getElementById('lightboxCaption').textContent = p.caption || '';
+}
+
+// Close on backdrop click
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) closeLightbox();
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') shiftLightbox(-1);
+  if (e.key === 'ArrowRight') shiftLightbox(1);
+});
+
+loadGallery();
+</script>
+</body>
+</html>

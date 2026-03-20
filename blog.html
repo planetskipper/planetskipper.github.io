@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From the Farm — Rankin's Little Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --soil:     #3d2b1f;
+  --bark:     #6b4c35;
+  --straw:    #c8a96e;
+  --wheat:    #e8d5a3;
+  --cream:    #f7f0e2;
+  --sage:     #7a8c6e;
+  --moss:     #4a5c3f;
+  --sky:      #c2d4d8;
+  --dusk:     #8c7b6e;
+  --white:    #fdfaf5;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lora', Georgia, serif;
+
+  --radius: 4px;
+  --max-w: 680px;
+  --pad: 1.5rem;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--soil);
+  font-size: 17px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--moss); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── Nav ──────────────────────────────────────────────────────────────── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(253, 250, 245, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(107, 76, 53, 0.12);
+  padding: 0.7rem var(--pad) 0;
+  transition: box-shadow 0.3s;
+}
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.3rem;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--soil);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.nav-logo span { font-style: italic; font-weight: 400; color: var(--bark); }
+
+.nav-row {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-row.primary { padding-bottom: 0.35rem; }
+
+.nav-row.secondary {
+  border-top: 1px solid rgba(107, 76, 53, 0.08);
+  padding: 0.3rem 0 0.4rem;
+}
+
+.nav-row a {
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bark);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.nav-row.secondary a { font-size: 0.72rem; }
+
+.nav-row a:hover,
+.nav-row a.active { opacity: 1; color: var(--soil); }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--soil);
+  border-radius: 2px;
+}
+
+@media (max-width: 560px) {
+  nav { padding: 0.85rem var(--pad); }
+  .nav-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+  .nav-top { padding-bottom: 0; border: none; width: auto; }
+  .nav-row {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    flex-direction: column;
+    gap: 0;
+    border-bottom: 1px solid rgba(107,76,53,0.1);
+    padding: 0.5rem 0;
+  }
+  .nav-row li a { display: block; padding: 0.75rem var(--pad); }
+  .nav-row.secondary { border-top: none; padding-top: 0; display: none; }
+  .nav-row.open, .nav-row.secondary.open { display: flex; }
+  .nav-toggle { display: flex; }
+}
+
+/* ── Page header ──────────────────────────────────────────────────────── */
+.page-header {
+  background: var(--cream);
+  padding: 4rem var(--pad) 3rem;
+  border-bottom: 1px solid rgba(107,76,53,0.08);
+}
+
+.page-header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bark);
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 400;
+  color: var(--soil);
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+
+.section-title em { font-style: italic; color: var(--bark); }
+
+.divider {
+  width: 40px;
+  height: 2px;
+  background: var(--straw);
+  margin: 1.25rem 0;
+  border-radius: 2px;
+}
+
+.page-intro {
+  color: var(--bark);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* ── Posts ────────────────────────────────────────────────────────────── */
+.posts-section {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 3rem var(--pad) 5rem;
+}
+
+.post {
+  margin-bottom: 4rem;
+  padding-bottom: 4rem;
+  border-bottom: 1px solid rgba(107,76,53,0.1);
+}
+
+.post:last-child {
+  border-bottom: none;
+}
+
+.post-meta {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dusk);
+  margin-bottom: 0.6rem;
+  opacity: 0.75;
+}
+
+.post-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  font-weight: 400;
+  color: var(--soil);
+  line-height: 1.25;
+  margin-bottom: 1.2rem;
+}
+
+.post-body {
+  color: var(--bark);
+  line-height: 1.85;
+  white-space: pre-wrap;
+}
+
+.post-body p { margin-bottom: 1rem; }
+.post-body p:last-child { margin-bottom: 0; }
+
+/* ── Giscus comments ──────────────────────────────────────────────────── */
+.comments-wrapper {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(107,76,53,0.08);
+}
+
+.comments-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bark);
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+}
+
+/* ── Loading / empty states ───────────────────────────────────────────── */
+.posts-loading {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--bark);
+  font-style: italic;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.posts-empty {
+  text-align: center;
+  padding: 5rem 0;
+  color: var(--bark);
+  opacity: 0.5;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+footer {
+  background: var(--soil);
+  color: var(--wheat);
+  padding: 3rem var(--pad) 2rem;
+  text-align: center;
+}
+
+.footer-inner { max-width: var(--max-w); margin: 0 auto; }
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.footer-location {
+  font-size: 0.85rem;
+  color: var(--straw);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.footer-links a {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--wheat);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.footer-links a:hover { opacity: 1; }
+
+.footer-copy {
+  font-size: 0.75rem;
+  color: var(--wheat);
+  opacity: 0.35;
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ──────────────────────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-top">
+      <a href="index.html" class="nav-logo">Rankin's <span>Little Farm</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav-row primary" id="navLinks">
+      <li><a href="index.html#about" onclick="closeNav()">About</a></li>
+      <li><a href="index.html#farm" onclick="closeNav()">The Farm</a></li>
+      <li><a href="index.html#helpx" onclick="closeNav()">Come and Help</a></li>
+      <li><a href="index.html#reviews" onclick="closeNav()">Stories</a></li>
+      <li><a href="index.html#contact" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <ul class="nav-row secondary" id="navLinksSecondary">
+      <li><a href="gallery.html" onclick="closeNav()">Gallery</a></li>
+      <li><a href="blog.html" class="active" onclick="closeNav()">From the Farm</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Page header ──────────────────────────────────────────────────────── -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <p class="section-label">News and notes</p>
+    <h1 class="section-title">From <em>the Farm</em></h1>
+    <div class="divider"></div>
+    <p class="page-intro">Seasonal updates, what's growing, and what's on our minds.</p>
+  </div>
+</header>
+
+<!-- ── Posts ───────────────────────────────────────────────────────────── -->
+<main class="posts-section" id="postsContainer">
+  <div class="posts-loading">Loading posts...</div>
+</main>
+
+<!-- Post template (hidden, cloned by JS) -->
+<template id="postTemplate">
+  <article class="post">
+    <p class="post-meta"></p>
+    <h2 class="post-title"></h2>
+    <div class="post-body"></div>
+    <div class="comments-wrapper">
+      <p class="comments-label">Discussion</p>
+      <div class="giscus-container"></div>
+    </div>
+  </article>
+</template>
+
+<!-- ── Footer ───────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <p class="footer-logo">Rankin's Little Farm</p>
+    <p class="footer-location">Gooramadda, Northern Victoria · Murray River Country</p>
+    <ul class="footer-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#farm">The farm</a></li>
+      <li><a href="index.html#helpx">Come and help</a></li>
+      <li><a href="index.html#reviews">Stories</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="blog.html">From the Farm</a></li>
+    </ul>
+    <p class="footer-copy">Rankin's Little Farm · 884 Gooramadda Road · Not for reproduction</p>
+  </div>
+</footer>
+
+<script>
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+  document.getElementById('navLinksSecondary').classList.toggle('open');
+}
+function closeNav() {
+  document.getElementById('navLinks').classList.remove('open');
+  document.getElementById('navLinksSecondary').classList.remove('open');
+}
+
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.style.boxShadow = window.scrollY > 60 ? '0 1px 12px rgba(61,43,31,0.08)' : 'none';
+});
+
+// Format date nicely
+function formatDate(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString('en-AU', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
+}
+
+// Load Giscus for a specific post into a container element
+function loadGiscus(container, postId) {
+  const script = document.createElement('script');
+  script.src = 'https://giscus.app/client.js';
+  script.setAttribute('data-repo', 'planetskipper/planetskipper.github.io');
+  script.setAttribute('data-repo-id', 'YOUR_REPO_ID');
+  script.setAttribute('data-category', 'Farm Posts');
+  script.setAttribute('data-category-id', 'YOUR_CATEGORY_ID');
+  script.setAttribute('data-mapping', 'specific');
+  script.setAttribute('data-term', postId);
+  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-reactions-enabled', '1');
+  script.setAttribute('data-emit-metadata', '0');
+  script.setAttribute('data-input-position', 'top');
+  script.setAttribute('data-theme', 'light');
+  script.setAttribute('data-lang', 'en');
+  script.setAttribute('data-loading', 'lazy');
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  container.appendChild(script);
+}
+
+async function loadPosts() {
+  const container = document.getElementById('postsContainer');
+  const template = document.getElementById('postTemplate');
+
+  let posts;
+  try {
+    const res = await fetch('posts.json');
+    if (!res.ok) throw new Error();
+    posts = await res.json();
+  } catch {
+    container.innerHTML = '<div class="posts-empty">Could not load posts.</div>';
+    return;
+  }
+
+  if (!posts.length) {
+    container.innerHTML = '<div class="posts-empty">No posts yet. Check back soon.</div>';
+    return;
+  }
+
+  container.innerHTML = '';
+
+  // Show newest first
+  [...posts].reverse().forEach(post => {
+    const el = template.content.cloneNode(true);
+    el.querySelector('.post-meta').textContent = formatDate(post.date);
+    el.querySelector('.post-title').textContent = post.title;
+
+    // Render body -- newlines become paragraphs
+    const bodyEl = el.querySelector('.post-body');
+    post.body.split(/\n\n+/).forEach(para => {
+      const p = document.createElement('p');
+      p.textContent = para.trim();
+      bodyEl.appendChild(p);
+    });
+
+    const giscusContainer = el.querySelector('.giscus-container');
+    loadGiscus(giscusContainer, post.id);
+
+    container.appendChild(el);
+  });
+}
+
+loadPosts();
+</script>
+</body>
+</html>

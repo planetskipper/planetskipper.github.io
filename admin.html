@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Rankin's Little Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --soil:  #3d2b1f;
+  --bark:  #6b4c35;
+  --straw: #c8a96e;
+  --wheat: #e8d5a3;
+  --cream: #f7f0e2;
+  --moss:  #4a5c3f;
+  --white: #fdfaf5;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lora', Georgia, serif;
+  --radius: 4px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream);
+  color: var(--soil);
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 3rem 1.5rem 5rem;
+}
+
+.card {
+  background: var(--white);
+  border-radius: 6px;
+  border: 1px solid rgba(107,76,53,0.12);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 640px;
+  box-shadow: 0 2px 16px rgba(61,43,31,0.06);
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--soil);
+  margin-bottom: 0.25rem;
+}
+
+.card-title em { font-style: italic; color: var(--bark); }
+
+.card-sub {
+  font-size: 0.85rem;
+  color: var(--bark);
+  opacity: 0.65;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+/* Lock screen */
+#lockScreen { display: block; }
+#editorScreen { display: none; }
+
+.field {
+  margin-bottom: 1.25rem;
+}
+
+.field label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bark);
+  margin-bottom: 0.4rem;
+  opacity: 0.8;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--soil);
+  background: var(--white);
+  border: 1px solid rgba(107,76,53,0.2);
+  border-radius: var(--radius);
+  padding: 0.65rem 0.85rem;
+  transition: border-color 0.2s;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--straw);
+}
+
+.field textarea {
+  min-height: 260px;
+  resize: vertical;
+  line-height: 1.75;
+}
+
+.hint {
+  font-size: 0.78rem;
+  color: var(--bark);
+  opacity: 0.55;
+  margin-top: 0.35rem;
+  font-style: italic;
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.8rem 1.75rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn-primary {
+  background: var(--moss);
+  color: var(--cream);
+}
+
+.btn-primary:hover { background: var(--soil); }
+
+.btn-secondary {
+  background: var(--wheat);
+  color: var(--soil);
+}
+
+.btn-secondary:hover { background: var(--straw); }
+
+.btn-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+/* Output box */
+.output-box {
+  display: none;
+  margin-top: 2rem;
+  background: var(--cream);
+  border: 1px solid rgba(107,76,53,0.15);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.output-box.visible { display: block; }
+
+.output-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bark);
+  opacity: 0.7;
+  margin-bottom: 0.75rem;
+}
+
+.output-code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  color: var(--soil);
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 1.6;
+}
+
+.copy-btn {
+  margin-top: 0.85rem;
+  font-size: 0.78rem;
+  padding: 0.5rem 1.1rem;
+}
+
+.instructions {
+  margin-top: 1.75rem;
+  padding: 1.25rem;
+  background: rgba(200,169,110,0.1);
+  border: 1px solid rgba(200,169,110,0.25);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  color: var(--bark);
+  line-height: 1.7;
+}
+
+.instructions strong {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bark);
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+}
+
+.instructions ol {
+  padding-left: 1.2rem;
+}
+
+.instructions li { margin-bottom: 0.35rem; }
+
+.error-msg {
+  color: #8b2e2e;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-style: italic;
+  display: none;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bark);
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.back-link:hover { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Lock screen -->
+  <div id="lockScreen">
+    <h1 class="card-title">Farm <em>Admin</em></h1>
+    <p class="card-sub">Post editor — enter your password to continue</p>
+
+    <div class="field">
+      <label for="passwordInput">Password</label>
+      <input type="password" id="passwordInput" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter') unlock()">
+      <p class="error-msg" id="errorMsg">Incorrect password.</p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="unlock()">Unlock</button>
+    </div>
+  </div>
+
+  <!-- Editor screen -->
+  <div id="editorScreen">
+    <h1 class="card-title">New <em>Post</em></h1>
+    <p class="card-sub">Write your post below, then copy the JSON entry into posts.json on GitHub.</p>
+
+    <div class="field">
+      <label for="postTitle">Title</label>
+      <input type="text" id="postTitle" placeholder="What's happening on the farm?">
+    </div>
+
+    <div class="field">
+      <label for="postDate">Date</label>
+      <input type="date" id="postDate">
+    </div>
+
+    <div class="field">
+      <label for="postBody">Post</label>
+      <textarea id="postBody" placeholder="Write your post here. Leave a blank line between paragraphs."></textarea>
+      <p class="hint">Leave a blank line between paragraphs. No special formatting needed.</p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="generateEntry()">Generate JSON entry</button>
+      <button class="btn btn-secondary" onclick="clearForm()">Clear</button>
+    </div>
+
+    <div class="output-box" id="outputBox">
+      <p class="output-label">Copy this entry</p>
+      <div class="output-code" id="outputCode"></div>
+      <button class="btn btn-secondary copy-btn" onclick="copyOutput()">Copy to clipboard</button>
+    </div>
+
+    <div class="instructions">
+      <strong>How to publish</strong>
+      <ol>
+        <li>Click "Generate JSON entry" above and copy the result.</li>
+        <li>Go to your GitHub repo and open <strong>posts.json</strong>.</li>
+        <li>Click the pencil (edit) icon.</li>
+        <li>Paste your new entry inside the <strong>[&nbsp;]</strong> brackets. Add a comma after the previous last entry if there is one.</li>
+        <li>Click "Commit changes". Your post will appear on the blog within a minute.</li>
+      </ol>
+    </div>
+
+    <a href="blog.html" class="back-link">Back to the blog</a>
+  </div>
+
+</div>
+
+<script>
+// ── Password ──────────────────────────────────────────────────────────────
+// Change "farmgate" to your own password. This is light security -- the page
+// is unlisted and not linked from the main site, which is sufficient for this use.
+const PASSWORD = 'farmgate';
+
+function unlock() {
+  const val = document.getElementById('passwordInput').value;
+  if (val === PASSWORD) {
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('editorScreen').style.display = 'block';
+    // Set today's date
+    const today = new Date();
+    const y = today.getFullYear();
+    const m = String(today.getMonth() + 1).padStart(2, '0');
+    const d = String(today.getDate()).padStart(2, '0');
+    document.getElementById('postDate').value = `${y}-${m}-${d}`;
+  } else {
+    const err = document.getElementById('errorMsg');
+    err.style.display = 'block';
+    document.getElementById('passwordInput').value = '';
+    document.getElementById('passwordInput').focus();
+  }
+}
+
+// ── Generate entry ────────────────────────────────────────────────────────
+function slugify(str) {
+  return str.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .slice(0, 60);
+}
+
+function generateEntry() {
+  const title = document.getElementById('postTitle').value.trim();
+  const date  = document.getElementById('postDate').value;
+  const body  = document.getElementById('postBody').value.trim();
+
+  if (!title || !date || !body) {
+    alert('Please fill in all three fields before generating.');
+    return;
+  }
+
+  const id = slugify(title) + '-' + date.replace(/-/g, '');
+
+  const entry = {
+    id,
+    date,
+    title,
+    body
+  };
+
+  const json = JSON.stringify(entry, null, 2);
+  document.getElementById('outputCode').textContent = json + ',';
+  document.getElementById('outputBox').classList.add('visible');
+  document.getElementById('outputBox').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function copyOutput() {
+  const text = document.getElementById('outputCode').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy to clipboard', 2000);
+  });
+}
+
+function clearForm() {
+  document.getElementById('postTitle').value = '';
+  document.getElementById('postBody').value = '';
+  document.getElementById('outputBox').classList.remove('visible');
+}
+</script>
+</body>
+</html>

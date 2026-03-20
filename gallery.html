@@ -53,39 +53,55 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--white);
-  border-bottom: 1px solid rgba(107, 76, 53, 0.1);
+  background: rgba(253, 250, 245, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(107, 76, 53, 0.12);
+  padding: 0.7rem var(--pad) 0;
   transition: box-shadow 0.3s;
 }
 
 .nav-inner {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 var(--pad);
-  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-top {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 0.3rem;
 }
 
 .nav-logo {
   font-family: var(--font-display);
   font-size: 1.05rem;
+  font-weight: 600;
   color: var(--soil);
   text-decoration: none;
   letter-spacing: 0.01em;
 }
 
-.nav-logo span { font-style: italic; color: var(--bark); }
+.nav-logo span { font-style: italic; font-weight: 400; color: var(--bark); }
 
-.nav-links {
+.nav-row {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   list-style: none;
 }
 
-.nav-links a {
-  font-size: 0.8rem;
+.nav-row.primary { padding-bottom: 0.35rem; }
+
+.nav-row.secondary {
+  border-top: 1px solid rgba(107, 76, 53, 0.08);
+  padding: 0.3rem 0 0.4rem;
+}
+
+.nav-row a {
+  font-size: 0.78rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--bark);
@@ -94,8 +110,10 @@ nav {
   transition: opacity 0.2s;
 }
 
-.nav-links a:hover,
-.nav-links a.active { opacity: 1; color: var(--soil); }
+.nav-row.secondary a { font-size: 0.72rem; }
+
+.nav-row a:hover,
+.nav-row a.active { opacity: 1; color: var(--soil); }
 
 .nav-toggle {
   display: none;
@@ -117,12 +135,13 @@ nav {
 }
 
 @media (max-width: 560px) {
-  .nav-toggle { display: flex; }
-
-  .nav-links {
+  nav { padding: 0.85rem var(--pad); }
+  .nav-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+  .nav-top { padding-bottom: 0; border: none; width: auto; }
+  .nav-row {
     display: none;
     position: absolute;
-    top: 60px;
+    top: 100%;
     left: 0;
     right: 0;
     background: var(--white);
@@ -131,13 +150,10 @@ nav {
     border-bottom: 1px solid rgba(107,76,53,0.1);
     padding: 0.5rem 0;
   }
-
-  .nav-links.open { display: flex; }
-
-  .nav-links li a {
-    display: block;
-    padding: 0.75rem var(--pad);
-  }
+  .nav-row li a { display: block; padding: 0.75rem var(--pad); }
+  .nav-row.secondary { border-top: none; padding-top: 0; display: none; }
+  .nav-row.open, .nav-row.secondary.open { display: flex; }
+  .nav-toggle { display: flex; }
 }
 
 /* ── Page header ──────────────────────────────────────────────────────── */
@@ -433,17 +449,22 @@ footer {
 <!-- ── Navigation ──────────────────────────────────────────────────────── -->
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Rankin's <span>Little Farm</span></a>
-    <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
+    <div class="nav-top">
+      <a href="index.html" class="nav-logo">Rankin's <span>Little Farm</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" onclick="toggleNav()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav-row primary" id="navLinks">
       <li><a href="index.html#about" onclick="closeNav()">About</a></li>
       <li><a href="index.html#farm" onclick="closeNav()">The Farm</a></li>
       <li><a href="index.html#helpx" onclick="closeNav()">Come and Help</a></li>
       <li><a href="index.html#reviews" onclick="closeNav()">Stories</a></li>
-      <li><a href="gallery.html" class="active" onclick="closeNav()">Gallery</a></li>
       <li><a href="index.html#contact" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <ul class="nav-row secondary" id="navLinksSecondary">
+      <li><a href="gallery.html" class="active" onclick="closeNav()">Gallery</a></li>
+      <li><a href="blog.html" onclick="closeNav()">From the Farm</a></li>
     </ul>
   </div>
 </nav>
@@ -486,8 +507,9 @@ footer {
       <li><a href="index.html#farm">The farm</a></li>
       <li><a href="index.html#helpx">Come and help</a></li>
       <li><a href="index.html#reviews">Stories</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
       <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="blog.html">From the Farm</a></li>
     </ul>
     <p class="footer-copy">Rankin's Little Farm · 884 Gooramadda Road · Not for reproduction</p>
   </div>
@@ -497,9 +519,11 @@ footer {
 // ── Mobile nav ────────────────────────────────────────────────────────────
 function toggleNav() {
   document.getElementById('navLinks').classList.toggle('open');
+  document.getElementById('navLinksSecondary').classList.toggle('open');
 }
 function closeNav() {
   document.getElementById('navLinks').classList.remove('open');
+  document.getElementById('navLinksSecondary').classList.remove('open');
 }
 
 // ── Nav scroll shadow ─────────────────────────────────────────────────────

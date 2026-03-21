@@ -531,23 +531,58 @@ nav {
   opacity: 0.6;
 }
 
-.booklet-link {
+.booklet-chooser {
+  display: inline-flex;
+  align-items: stretch;
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+
+.booklet-chooser select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--moss);
+  border: none;
+  border-right: 1px solid rgba(253, 250, 245, 0.15);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 2.2rem 0.85rem 1rem;
+  cursor: pointer;
+  outline: none;
+  min-width: 160px;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23fdfaf5' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.65rem center;
+}
+
+.booklet-chooser select option {
+  background: var(--moss);
+  color: var(--cream);
+}
+
+.booklet-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  border: 1px solid rgba(200, 169, 110, 0.4);
-  border-radius: var(--radius);
-  padding: 0.85rem 1.5rem;
-  color: var(--straw);
-  text-decoration: none;
+  background: var(--moss);
+  border: none;
+  color: var(--cream);
+  font-family: var(--font-body);
   font-size: 0.85rem;
   letter-spacing: 0.08em;
+  padding: 0.85rem 1.25rem;
+  cursor: pointer;
   transition: background 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-.booklet-link:hover {
-  background: rgba(200, 169, 110, 0.1);
-  color: var(--straw);
+.booklet-btn:hover {
+  background: var(--soil);
+  color: var(--cream);
 }
 
 /* ── Reviews ──────────────────────────────────────────────────────────── */
@@ -876,7 +911,15 @@ footer {
     <p class="reveal" style="color:var(--bark);margin-bottom:1.5rem;font-size:0.9rem;font-style:italic">10 minutes from Rutherglen · 35 minutes from Albury-Wodonga · Close to Corowa, Beechworth, and the Murray River</p>
     <div class="map-container reveal">
       <div class="map-embed">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d39094.71845313853!2d146.5513009541306!3d-36.01001000354844!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDAwJzIxLjYiUyAxNDbCsDMzJzA1LjQiRQ!5e1!3m2!1sen!2sau!4v1774001526769!5m2!1sen!2sau" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d39094.71845313853!2d146.5513009541306!3d-36.01001000354844!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzbCsDAwJzIxLjYiUyAxNDbCsDMzJzA1LjQiRQ!5e1!3m2!1sen!2sau!4v1774001526769!5m2!1sen!2sau"
+          width="100%"
+          height="340"
+          style="border:0;display:block"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Rankin's Little Farm location">
+        </iframe>
       </div>
     </div>
   </div>
@@ -920,12 +963,24 @@ footer {
       </ul>
     </div>
 
-    <a href="welcome-booklet.pdf" class="booklet-link reveal" download>
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 1v9M5 7l3 3 3-3M2 12v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Download the welcome booklet
-    </a>
+    <div class="booklet-chooser reveal">
+      <select id="bookletLang" aria-label="Choose language">
+        <option value="booklet-en.html">English</option>
+        <option value="booklet-fr.html">Fran&#231;ais</option>
+        <option value="booklet-de.html">Deutsch</option>
+        <option value="booklet-es.html">Espa&#241;ol</option>
+        <option value="booklet-it.html">Italiano</option>
+        <option value="booklet-ja.html">&#26085;&#26412;&#35486;</option>
+        <option value="booklet-ko.html">&#54620;&#44397;&#50612;</option>
+        <option value="booklet-zh.html">&#20013;&#25991;</option>
+      </select>
+      <button class="booklet-btn" onclick="openBooklet()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 1v9M5 7l3 3 3-3M2 12v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Read the welcome booklet
+      </button>
+    </div>
   </div>
 </section>
 
@@ -1035,6 +1090,11 @@ footer {
 
 <script>
 // ── Mobile nav ────────────────────────────────────────────────────────────
+function openBooklet() {
+  const lang = document.getElementById('bookletLang').value;
+  window.open(lang, '_blank');
+}
+
 function toggleNav() {
   document.getElementById('navLinks').classList.toggle('open');
   document.getElementById('navLinksSecondary').classList.toggle('open');

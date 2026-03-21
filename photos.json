@@ -17,5 +17,15 @@
 { "src": "images/river_gum.jpg", "caption": "A river gum on the boundary" },
 { "src": "images/boundary_trees.jpg", "caption": "Looking out to the neighbouring paddocks" },
 { "src": "images/grevillea_sheds.jpg", "caption": "Grevillea in flower with the workshop sheds behind" },
-{ "src": "images/grape_vine_pergola.jpg", "caption": "The grape vine pergola beside the house" }
+{ "src": "images/grape_vine_pergola.jpg", "caption": "The grape vine pergola beside the house" },
+{ "src": "images/storm_clouds.jpg",     "caption": "Summer storm building over the farm" },
+{ "src": "images/earths_shadow.jpg",    "caption": "The shadow of the Earth rising at dusk" },
+{ "src": "images/autumn_pear.jpg",      "caption": "A pear tree turning in the orchard" },
+{ "src": "images/autumn_leaves.jpg",    "caption": "Autumn colour in the orchard" },
+{ "src": "images/cirrus_sky.jpg",       "caption": "High cirrus over Gooramadda" },
+{ "src": "images/sunrise_contrail.jpg", "caption": "Sunrise contrail over the farm sheds" },
+{ "src": "images/birthday_cake.jpg",    "caption": "A helper-made cake on the mosaic table" },
+{ "src": "images/storm_tractor.jpg",    "caption": "Storm rolling in over the back paddock" },
+{ "src": "images/helpers_waving.jpg",   "caption": "Two helpers saying goodbye" },
+{ "src": "images/christmas_table.jpg",  "caption": "Christmas lunch at the farm table" }
 ]

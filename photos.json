@@ -1,14 +1,15 @@
+
 [
   {
-    "src": "images/orchard-spring.jpg",
-    "caption": "The orchard coming into blossom, September"
+    "src": "images/rose_garden.jpg",
+    "caption": "The rose garden in bloom"
   },
   {
-    "src": "images/raised-beds.jpg",
-    "caption": "New raised beds in the kitchen garden"
+    "src": "images/sunset_at_the_farm.jpg",
+    "caption": "Sunset over the paddocks"
   },
   {
-    "src": "images/sunset-paddock.jpg",
-    "caption": ""
+    "src": "images/vegetable_gardens.jpg",
+    "caption": "The raised vegetable beds"
   }
 ]

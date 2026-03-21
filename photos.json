@@ -1,5 +1,6 @@
 
 [
+
   {
     "src": "images/rose_garden.jpg",
     "caption": "The rose garden in bloom"
@@ -11,5 +12,12 @@
   {
     "src": "images/vegetable_gardens.jpg",
     "caption": "The raised vegetable beds"
-  }
+  },
+{ "src": "images/evening_sky.jpg", "Evening Sky this week": "" },
+{ "src": "images/farm_paddock.jpg", "Farm Paddock": "" },
+{ "src": "images/crepe_myrtles.jpg", "Circle Walk": "" },
+{ "src": "images/italian_garden.jpg", "Italian garden": "" },
+{ "src": "images/yellow_rose.jpg", "Mellow Yellow": "" },
+{ "src": "images/kangaroo_sculpture.jpg", "Kangaroo Sculpture": "" }
+
 ]

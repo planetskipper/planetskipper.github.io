@@ -30,6 +30,11 @@
 },
 { 
 "src": "images/kangaroo_sculpture.jpg", "caption": "Kangaroo Sculpture"
-}
+},
+{ "src": "images/farm_house.jpg", "caption": "The farmhouse and gardens from the driveway" },
+{ "src": "images/rose_pergola.jpg", "caption": "The rose garden pergola in full leaf" },
+{ "src": "images/orchard_view.jpg", "caption": "Looking out through the orchard to the paddocks beyond" },
+{ "src": "images/eucalyptus.jpg", "caption": "Eucalyptus branches against a clear autumn sky" },
+{ "src": "images/orchard_light.jpg", "caption": "Morning light through the orchard trees" }
 
 ]

@@ -27,5 +27,12 @@
 { "src": "images/birthday_cake.jpg",    "caption": "A helper-made cake on the mosaic table" },
 { "src": "images/storm_tractor.jpg",    "caption": "Storm rolling in over the back paddock" },
 { "src": "images/helpers_waving.jpg",   "caption": "Two helpers saying goodbye" },
-{ "src": "images/christmas_table.jpg",  "caption": "Christmas lunch at the farm table" }
+{ "src": "images/christmas_table.jpg",  "caption": "Christmas lunch at the farm table" },
+{ "src": "images/skid_steer_work.jpg",   "caption": "Working with the skid steer on a project" },
+{ "src": "images/cattle_at_dusk.jpg",    "caption": "Cattle in the neighbour's paddock at dusk" },
+{ "src": "images/tree_huggers.jpg",      "caption": "Helpers attempting to hug a river red gum on a day out" },
+{ "src": "images/misty_driveway.jpg",    "caption": "The driveway at dawn with ground mist over the paddocks" },
+{ "src": "images/greenhouse_build.jpg",  "caption": "Four helpers who built the new greenhouse in a day" },
+{ "src": "images/christmas_mangoes.jpg", "caption": "Mangoes and cherries at the Christmas table" },
+{ "src": "images/christmas_helper.jpg",  "caption": "A helper at Christmas lunch" }
 ]

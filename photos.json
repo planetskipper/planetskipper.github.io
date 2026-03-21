@@ -12,5 +12,10 @@
   { "src": "images/rose_pergola.jpg",       "caption": "The rose garden pergola in full leaf" },
   { "src": "images/orchard_view.jpg",       "caption": "Looking out through the orchard to the paddocks beyond" },
   { "src": "images/eucalyptus.jpg",         "caption": "Eucalyptus branches against a clear autumn sky" },
-  { "src": "images/orchard_light.jpg",      "caption": "Morning light through the orchard trees" }
+  { "src": "images/orchard_light.jpg",      "caption": "Morning light through the orchard trees" },
+{ "src": "images/rose_garden_pergola_view.jpg", "caption": "The rose garden pergola from the central path" },
+{ "src": "images/river_gum.jpg", "caption": "A river gum on the boundary" },
+{ "src": "images/boundary_trees.jpg", "caption": "Looking out to the neighbouring paddocks" },
+{ "src": "images/grevillea_sheds.jpg", "caption": "Grevillea in flower with the workshop sheds behind" },
+{ "src": "images/grape_vine_pergola.jpg", "caption": "The grape vine pergola beside the house" }
 ]

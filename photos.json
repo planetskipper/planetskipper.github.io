@@ -13,17 +13,23 @@
     "src": "images/vegetable_gardens.jpg",
     "caption": "The raised vegetable beds"
   },
-{ "src": "images/evening_sky.jpg", "caption": "Evening Sky this week"
+{ 
+"src": "images/evening_sky.jpg", "caption": "Evening Sky this week"
 },
-{ "src": "images/farm_paddock.jpg", "caption": "Farm Paddock"
+{ 
+"src": "images/farm_paddock.jpg", "caption": "Farm Paddock"
 },
-{ "src": "images/crepe_myrtles.jpg", "caption": "Circle Walk"
+{ 
+"src": "images/crepe_myrtles.jpg", "caption": "Circle Walk"
 },
-{ "src": "images/italian_garden.jpg", "caption": "Italian garden"
+{ 
+"src": "images/italian_garden.jpg", "caption": "Italian garden"
 },
-{ "src": "images/yellow_rose.jpg", "caption": "Mellow Yellow"
+{ 
+"src": "images/yellow_rose.jpg", "caption": "Mellow Yellow"
 },
-{ "src": "images/kangaroo_sculpture.jpg", "caption": "Kangaroo Sculpture"
+{ 
+"src": "images/kangaroo_sculpture.jpg", "caption": "Kangaroo Sculpture"
 }
 
 ]
